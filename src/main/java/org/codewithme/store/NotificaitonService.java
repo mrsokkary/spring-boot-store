@@ -2,5 +2,5 @@ package org.codewithme.store;
 
 public interface NotificaitonService
 {
-    void Send(String message);
+   void send(String message, String recipientEmail);
 }
