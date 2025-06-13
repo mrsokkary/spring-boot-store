@@ -1,12 +1,12 @@
-# 🛒 Online Store Demo
+# Online Store Demo
 
 This is a demo **Spring Boot** application for an online store.
 
-## 🚀 Features
+## Features
 
 
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - Java 24
 - Spring Boot 3.x
