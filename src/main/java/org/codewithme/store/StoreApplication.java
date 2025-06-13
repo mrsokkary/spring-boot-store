@@ -9,9 +9,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class StoreApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
-        var userService = context.getBean(UserService.class);
-        userService.registerUser(new User(1L, "me@gmail.com", "12345", "Mohamed"));
-        userService.registerUser(new User(1L, "me@gmail.com", "12345", "Mohamed"));
+//        var userService = context.getBean(UserService.class);
+//        userService.registerUser(new User(1L, "me@gmail.com", "12345", "Mohamed"));
+//        userService.registerUser(new User(1L, "me@gmail.com", "12345", "Mohamed"));
 
 
 //          var orderService = context.getBean(OrderServive.class);
