@@ -9,18 +9,15 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
+@Entity
 @Table(name = "categories")
 public class Category {
-    public Category(String name) {
-        this.name = name;
-    }
-
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Byte id;
 
@@ -29,4 +26,12 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private Set<Product> products = new HashSet<>();
+
+    public Category(String name) {
+        this.name = name;
+    }
+
+    public Category(byte id) {
+        this.id = id;
+    }
 }

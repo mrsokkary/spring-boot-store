@@ -21,7 +21,7 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description", columnDefinition = "TEXT", nullable = true)
+    @Column(name = "description")
     private String description;
 
     @Column(name = "price")
@@ -30,5 +30,4 @@ public class Product {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private Category category;
-
 }

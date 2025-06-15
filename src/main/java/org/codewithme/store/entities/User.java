@@ -21,54 +21,50 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @Builder.Default
     private List<Address> addresses = new ArrayList<>();
 
     public void addAddress(Address address) {
-        this.addresses.add(address);
+        addresses.add(address);
         address.setUser(this);
     }
 
     public void removeAddress(Address address) {
-        this.addresses.remove(address);
+        addresses.remove(address);
         address.setUser(null);
-    }
-
-    @ManyToMany
-    @Builder.Default
-    @JoinTable(
-            name ="user_tags",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private Set<Tag> tags = new HashSet<>();
-
-    public void AddTag(String tagName) {
-        var tag = new Tag(tagName);
-        this.tags.add(tag);
-        tag.getUsers().add(this);
     }
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Profile profile;
-    public void addProfile(Profile profile) {
-        this.profile = profile;
-    }
 
-    @ToString.Exclude
     @ManyToMany
     @JoinTable(
             name = "wishlist",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private  Set<Product> wishlist = new HashSet<>();
+    private Set<Product> favoriteProducts = new HashSet<>();
+
+    public void addFavoriteProduct(Product product) {
+        favoriteProducts.add(product);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "name = " + name + ", " +
+                "email = " + email + ")";
+    }
 }
