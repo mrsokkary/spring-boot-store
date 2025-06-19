@@ -34,4 +34,8 @@ public class Category {
     public Category(byte id) {
         this.id = id;
     }
+
+    public Byte getId() {
+        return id;
+    }
 }

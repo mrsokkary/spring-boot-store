@@ -30,4 +30,8 @@ public class Product {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
 }
