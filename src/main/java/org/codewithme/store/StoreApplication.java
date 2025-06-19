@@ -14,9 +14,8 @@ public class StoreApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(StoreApplication.class, args);
-//
+
 //        ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
-//
 //        var userService = context.getBean(UserService.class);
 //        userService.deleteRelated();
     }

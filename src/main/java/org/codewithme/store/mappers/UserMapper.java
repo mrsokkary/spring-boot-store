@@ -1,5 +1,7 @@
 package org.codewithme.store.mappers;
 
+import org.codewithme.store.dtos.RegisterUserRequest;
+import org.codewithme.store.dtos.UpdateUserRequest;
 import org.codewithme.store.dtos.UserDto;
 import org.codewithme.store.entities.User;
 import org.mapstruct.*;
@@ -9,4 +11,7 @@ import org.mapstruct.Mapper;
 public interface UserMapper {
     @InheritConfiguration
     UserDto toDto(User user);
+    @InheritConfiguration
+    User toEntity(RegisterUserRequest request);
+    void update(UpdateUserRequest request, @MappingTarget User user);
 }

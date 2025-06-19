@@ -1,17 +1,10 @@
 package org.codewithme.store.dtos;
+import lombok.Data;
 
-import lombok.*;
-
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserDto {
-    private Long id;
+public class RegisterUserRequest {
     private String name;
     private String email;
-
-    public Long getId() {
-        return id;
-    }
+    private String password;
 
     public String getName() {
         return name;
@@ -21,8 +14,8 @@ public class UserDto {
         return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getPassword() {
+        return password;
     }
 
     public void setName(String name) {
@@ -31,5 +24,9 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
