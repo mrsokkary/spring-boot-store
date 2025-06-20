@@ -1,11 +1,11 @@
 package org.codewithme.store.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.codewithme.store.dtos.ChangePasswordRequest;
 import org.codewithme.store.dtos.RegisterUserRequest;
 import org.codewithme.store.dtos.UpdateUserRequest;
 import org.codewithme.store.dtos.UserDto;
-import org.codewithme.store.entities.User;
 import org.codewithme.store.mappers.UserMapper;
 import org.codewithme.store.repositories.UserRepository;
 import org.springframework.data.domain.Sort;
@@ -14,9 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @RestController
 @AllArgsConstructor
@@ -47,9 +45,16 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDto> createUser(
-            @RequestBody RegisterUserRequest request,
+    public ResponseEntity<?> registerUser(
+            @Valid @RequestBody RegisterUserRequest request,
             UriComponentsBuilder uriBuilder) {
+
+        //Business Rules
+        if (userRepository.existsByEmail(request.getEmail()))
+            return ResponseEntity.badRequest().body(
+                    Map.of("email", "email already exist"));
+
+        //
         var user = userMapper.toEntity(request);
         userRepository.save(user);
         var userDto = userMapper.toDto(user);

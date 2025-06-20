@@ -78,6 +78,7 @@ public class ProductController {
         }
 
         productMapper.update(productDto, product);
+        product.setId(id);
         product.setCategory(category);
         productRepository.save(product);
         productDto.setId(product.getId());
