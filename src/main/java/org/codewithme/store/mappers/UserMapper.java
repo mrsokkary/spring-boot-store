@@ -9,9 +9,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    @InheritConfiguration
     UserDto toDto(User user);
-    @InheritConfiguration
     User toEntity(RegisterUserRequest request);
     void update(UpdateUserRequest request, @MappingTarget User user);
 }

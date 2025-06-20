@@ -1,6 +1,7 @@
 package org.codewithme.store.controllers;
 
 import lombok.AllArgsConstructor;
+import org.codewithme.store.dtos.ChangePasswordRequest;
 import org.codewithme.store.dtos.RegisterUserRequest;
 import org.codewithme.store.dtos.UpdateUserRequest;
 import org.codewithme.store.dtos.UserDto;
@@ -69,4 +70,33 @@ public class UserController {
         return ResponseEntity.ok(userMapper.toDto(user));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(
+            @PathVariable(name = "id") Long id) {
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        userRepository.delete(user);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/change-password")
+    public ResponseEntity<Void> changePassword(
+            @PathVariable(name = "id") Long id,
+            @RequestBody ChangePasswordRequest request) {
+
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (!user.getPassword().equals(request.getOldPassword())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        user.setPassword(request.getNewPassword());
+        userRepository.save(user);
+        return ResponseEntity.noContent().build();
+    }
 }
