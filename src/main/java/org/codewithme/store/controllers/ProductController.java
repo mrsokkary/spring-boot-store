@@ -1,5 +1,6 @@
 package org.codewithme.store.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.codewithme.store.dtos.ProductDto;
 import org.codewithme.store.entities.Product;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/products")
+@Tag(name = "products")
 public class ProductController {
 
     private final ProductRepository productRepository;

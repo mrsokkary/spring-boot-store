@@ -1,5 +1,6 @@
 package org.codewithme.store.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.codewithme.store.dtos.ChangePasswordRequest;
@@ -19,6 +20,7 @@ import java.util.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("users")
+@Tag(name = "Users")
 public class UserController {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
