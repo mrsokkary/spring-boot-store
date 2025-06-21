@@ -7,11 +7,14 @@ import org.codewithme.store.dtos.ChangePasswordRequest;
 import org.codewithme.store.dtos.RegisterUserRequest;
 import org.codewithme.store.dtos.UpdateUserRequest;
 import org.codewithme.store.dtos.UserDto;
+import org.codewithme.store.entities.Role;
 import org.codewithme.store.mappers.UserMapper;
+import org.codewithme.store.repositories.ProductRepository;
 import org.codewithme.store.repositories.UserRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,6 +27,7 @@ import java.util.*;
 public class UserController {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping()
     public Iterable<UserDto> getAllUsers(
@@ -56,8 +60,12 @@ public class UserController {
             return ResponseEntity.badRequest().body(
                     Map.of("email", "email already exist"));
 
-        //
         var user = userMapper.toEntity(request);
+
+        //hash password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        user.setRole(Role.USER);
         userRepository.save(user);
         var userDto = userMapper.toDto(user);
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
